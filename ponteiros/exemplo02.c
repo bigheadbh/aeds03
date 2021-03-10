@@ -48,5 +48,7 @@ int main(){
 
     printLista(lista);
 
+    // Pesquisar se existe ou não um elemento na lista????
+
     return 0;
 }
