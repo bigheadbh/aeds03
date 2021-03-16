@@ -5,12 +5,15 @@
 
 bool pesquisaSequencial(int vetor[], int chave){
     int resp = false;
+    int count = 0;
     for(int i=0; i<TAM; i++){
+        count++;
         if(vetor[i] == chave){
             resp = true;
             i = TAM;
         }
     }
+    printf("(count %i)\n", count);
     return resp;
 }
 
