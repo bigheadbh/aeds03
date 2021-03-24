@@ -1,68 +1,52 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <limits.h>
-#include <sys/time.h>
 
-typedef long TipoChave;
-typedef struct Registro
-{
-    TipoChave Chave;
-    /* outros componentes */
+typedef struct Registro {
+    long Chave;
+    int idade;
 } Registro;
 
-typedef struct No *Apontador;
-typedef struct No
-{
+typedef struct No{
     Registro Reg;
-    Apontador Esq, Dir;
+    struct No* Esq;
+    struct No* Dir;
 } No;
 
 
-void Pesquisa(Registro *x, Apontador *p)
-{
-    if (*p == NULL)
-    {
+void Pesquisa(Registro *x, No *p){
+    if (p == NULL){
         printf("Erro : Registro nao esta presente na arvore\n");
         return;
     }
-    if (x->Chave < (*p)->Reg.Chave)
-    {
-        Pesquisa(x, &(*p)->Esq);
+    if (x->Chave < p->Reg.Chave) {
+        Pesquisa(x, p->Esq);
         return;
+    } else if (x->Chave > p->Reg.Chave){ 
+        Pesquisa(x, p->Dir);
+    } else {
+        *x = p->Reg;
     }
-    if (x->Chave > (*p)->Reg.Chave)
-        Pesquisa(x, &(*p)->Dir);
-    else
-        *x = (*p)->Reg;
 }
 
-void Insere(Registro x, Apontador *p)
-{
-    if (*p == NULL)
-    {
-        *p = (Apontador)malloc(sizeof(No));
+void Insere(Registro x, No **p) {
+    if (*p == NULL) {
+        *p = (No*)malloc(sizeof(No));
         (*p)->Reg = x;
         (*p)->Esq = NULL;
         (*p)->Dir = NULL;
         return;
     }
-    if (x.Chave < (*p)->Reg.Chave)
-    {
+    if (x.Chave < (*p)->Reg.Chave){
         Insere(x, &(*p)->Esq);
         return;
-    }
-    if (x.Chave > (*p)->Reg.Chave)
+    } else if (x.Chave > (*p)->Reg.Chave){
         Insere(x, &(*p)->Dir);
-    else
+    } else {
         printf("Erro : Registro ja existe na arvore\n");
+    }
 }
 
-void Inicializa(Apontador *Dicionario)
-{
-    *Dicionario = NULL;
-}
-
-void Antecessor(Apontador q, Apontador *r)
+void Antecessor(No *q, No **r)
 {
     if ((*r)->Dir != NULL)
     {
@@ -75,9 +59,9 @@ void Antecessor(Apontador q, Apontador *r)
     free(q);
 }
 
-void Retira(Registro x, Apontador *p)
+void Retira(Registro x, No **p)
 {
-    Apontador Aux;
+    No* Aux;
     if (*p == NULL)
     {
         printf("Erro : Registro nao esta na arvore\n");
@@ -110,7 +94,7 @@ void Retira(Registro x, Apontador *p)
     free(Aux);
 }
 
-void Central(Apontador p)
+void Central(No *p)
 {
     if (p == NULL)
         return;
@@ -119,23 +103,24 @@ void Central(Apontador p)
     Central(p->Dir);
 }
 
-
-#define MAX 10
+#define MAX 5
 
 int main(int argc, char *argv[]){
-
-    No *arvore;
+    No *arvore = NULL;
+   
     Registro x;
-    int i, n;
-
-    Inicializa(&arvore);
 
     /* Insere cada chave na arvore e testa sua integridade apos cada insercao */
-    for (i = 0; i < MAX; i++){
+    for (int i = 0; i < MAX; i++){
         x.Chave = i+1;
+        x.idade = 20+i;
         Insere(x, &arvore);
-        printf("Inseriu chave: %ld\n", x.Chave);
+        printf("Inseriu chave: %ld\n\n", x.Chave);
     }
-    
+
+    x.Chave = 5;
+    Pesquisa(&x, arvore);
+    printf("%d - a idade da chave 5\n", x.idade);
+
     return 0;
 }
