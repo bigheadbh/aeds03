@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
+#include <math.h>
 
 typedef struct Registro {
     long chave;
@@ -118,38 +120,135 @@ void PosOrdem(No *p){
     PosOrdem(p->Dir);
 }
 
+/*
+ * Escreva um algoritmo para calcular a 
+ * altura de um árvore binária
+ */
+int CalculaAltura(No *p){
+    if (p == NULL)
+        return -1;
+    else {
+        int alturaEsq = CalculaAltura(p->Esq);
+        int alturaDir = CalculaAltura(p->Dir);
+        int altura = (alturaEsq > alturaDir)? alturaEsq: alturaDir;
+        return (altura + 1);
+    }
+}
+
+/*
+ * Escreva um algoritmo que conte o número 
+ * de nós de uma árvore binária.
+ */
+int CalculaQtde(No *p){
+    if (p == NULL)
+        return 0;
+    else{
+        int qtdeEsq = CalculaQtde(p->Esq);
+        int qtdeDir = CalculaQtde(p->Dir);
+        int qtde = qtdeEsq + qtdeDir + 1;
+        return qtde;
+    }
+}
+
+/*
+ * Escreva um algoritmo que conte o número 
+ * de nós folhas de uma árvore binária.
+ */
+
+int CalculaQtdeFolhas(No *p){
+    if (p == NULL)
+        return 0;
+    else {
+        int qtdeEsq = CalculaQtdeFolhas(p->Esq);
+        int qtdeDir = CalculaQtdeFolhas(p->Dir);
+        int qtde = qtdeEsq + qtdeDir;
+        if(p->Esq == NULL && p->Dir == NULL)
+            qtde = qtde + 1;
+        return qtde;
+    }
+}
+
+/*
+ * Escreva um algoritmo que determine o 
+ * numero de nos internos.
+ */
+int CalculaQtdeInternos(No *p){
+    if (p == NULL)
+        return 0;
+    else{
+        int qtdeEsq = CalculaQtdeInternos(p->Esq);
+        int qtdeDir = CalculaQtdeInternos(p->Dir);
+        int qtde = qtdeEsq + qtdeDir;
+        if (p->Esq != NULL || p->Dir != NULL)
+            qtde = qtde + 1;
+        return qtde;
+    }
+}
+
+/*
+ * Escreva um algoritmo que determine se uma 
+ * árvore binária é completa ou não.
+ */
+bool isComplete(No *p){
+    bool resp = false;
+    int folhas = CalculaQtdeFolhas(p);
+    int altura = CalculaAltura(p);
+    if(pow(2,altura) == folhas)
+        resp = true;
+
+    return resp;
+}
+
+
+
 #define MAX 10
 
-int main(int argc, char *argv[]){
+    int
+    main(int argc, char *argv[]){
     No *arvore = NULL;
    
     Registro x;
     /* Insere cada chave na arvore e testa sua integridade apos cada insercao */
-    for (int i = 0; i < MAX; i++){
+    /*for (int i = 0; i < MAX; i++){
         x.chave = rand()%100;
-        x.idade = 20+i;
+        x.idade = 20 + i;
         Insere(x, &arvore);
-#ifdef DEBUG
-        printf("Inseriu chave: %ld\n", x.chave);
-        getchar();
-#endif // DEBUG
-    }
+    }*/
 
-    x.chave = 5;
+    x.chave = 15;
+    x.idade = 20 + rand()%20;
+    Insere(x, &arvore);
+
+    x.chave = 18;
+    x.idade = 20 + rand() % 20;
+    Insere(x, &arvore);
+
+    x.chave = 7;
+    x.idade = 20 + rand() % 20;
+    Insere(x, &arvore);
+
+    // caminhamento central
+    Central(arvore);
+    printf("\n");
+
+
+    // Pesquisa
+    /*x.chave = 5;
     Pesquisa(&x, arvore);
     if(x.chave != -1)
         printf("%d - a idade da chave 5\n", x.idade);
+    */
 
-    printf("[ ");
-    Central(arvore);
-    printf(" ]\n");
+    printf("A altura da árvore eh: %d\n", CalculaAltura(arvore));
+    printf("A qtde de nos da árvore eh: %d\n", CalculaQtde(arvore));
+    printf("A qtde de nos folhas da árvore eh: %d\n", CalculaQtdeFolhas(arvore));
+    printf("A qtde de nos internos na árvore eh: %d\n", CalculaQtdeInternos(arvore));
 
-    printf("[ ");
-    PosOrdem(arvore);
-    printf(" ]\n");
+    if(isComplete(arvore)){
+        printf("\nArvore eh completa!!!\n");
+    } else {
+        printf("\nArvore nao eh completa!!!\n");
+    }
 
-    printf("[ ");
-    PreOrdem(arvore);
-    printf(" ]\n");
     return 0;
 }
