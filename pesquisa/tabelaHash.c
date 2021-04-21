@@ -3,13 +3,14 @@
 #include <sys/time.h>
 #include <string.h>
 #define M 7
-#define N 7      
+#define N 10      
 #define TAMALFABETO 256
 
 /* typedef unsigned int  TipoPesos[n]; */
 typedef char TipoChave[N];
 typedef unsigned TipoPesos[N][TAMALFABETO];
 
+// Definicao da lista
 typedef struct TipoItem {
   /* outros componentes */
   TipoChave Chave;
@@ -101,10 +102,10 @@ TipoApontador Pesquisa(TipoChave Ch, TipoPesos p, TipoDicionario T){
   else { 
     Ap = T[i].Primeiro;
     while (Ap->Prox->Prox != NULL &&
-        strncmp(Ch, Ap->Prox->Item.Chave, sizeof(TipoChave))) 
+           strcasecmp(Ch, Ap->Prox->Item.Chave))
       Ap = Ap->Prox;
 
-    if (!strncmp(Ch, Ap->Prox->Item.Chave, sizeof(TipoChave))) 
+    if (!strcasecmp(Ch, Ap->Prox->Item.Chave))
       return Ap;
     else 
       return NULL;  
@@ -157,6 +158,9 @@ void LerPalavra(char *p, int Tam){
   for(i=j-1;(i>=0 && p[i]==' ');i--) p[i]='\0';
 }
 
+/*
+ *
+ */
 int main(int argc, char *argv[]){ 
   Inicializa(Tabela);
   GeraPesos(p); 
@@ -171,9 +175,14 @@ int main(int argc, char *argv[]){
   printf("Tabela apos insercao:\n");
   Imprime(Tabela);
 
+  printf("Pressione uma tecla para continuar....\n");
+  getchar();
+  system("clear || cls");
+
+  printf("Digite a palavra para pesquisa ou FIM para sair!!\n");
   printf("Pesquisar :  ");
   LerPalavra(Elemento.Chave,N);
-  while (strcmp(Elemento.Chave, "FIM") != 0) { 
+  while (strcasecmp(Elemento.Chave, "FIM") != 0) { 
     i = Pesquisa(Elemento.Chave, p, Tabela);
     if (i == NULL) 
       printf("pesquisa sem sucesso \n");
@@ -182,5 +191,6 @@ int main(int argc, char *argv[]){
     printf("Pesquisar :  ");
     LerPalavra(Elemento.Chave,N);
   }
+  
   return 0;
 } 
