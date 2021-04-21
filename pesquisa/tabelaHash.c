@@ -6,7 +6,7 @@
 #define N 10      
 #define TAMALFABETO 256
 
-/* typedef unsigned int  TipoPesos[n]; */
+/* typedef unsigned int TipoPesos[n]; */
 typedef char TipoChave[N];
 typedef unsigned TipoPesos[N][TAMALFABETO];
 
@@ -137,6 +137,9 @@ void Imp(TipoLista Lista){
   }
 }
 
+/*
+ *
+ */
 void Imprime(TipoDicionario Tabela){ 
   int i;
   for (i = 0; i < M; i++) { 
@@ -146,7 +149,10 @@ void Imprime(TipoDicionario Tabela){
     putchar('\n');
   }
 } 
- 
+
+/*
+ * 
+ */ 
 void LerPalavra(char *p, int Tam){ 
   char c; int i, j;
   fflush(stdin); j=0;
@@ -165,7 +171,7 @@ int main(int argc, char *argv[]){
   Inicializa(Tabela);
   GeraPesos(p); 
   LerPalavra(Elemento.Chave,N);
-  while (strcmp(Elemento.Chave, "FIM") != 0) { 
+  while (strcasecmp(Elemento.Chave, "FIM") != 0){
     Insere(Elemento, p, Tabela);
     LerPalavra(Elemento.Chave,N);
   }
