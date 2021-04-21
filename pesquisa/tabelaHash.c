@@ -131,7 +131,7 @@ void Imp(TipoLista Lista){
   TipoApontador Aux;
   Aux = Lista.Primeiro->Prox;
   while (Aux != NULL) { 
-    printf("%.*s ", N, Aux->Item.Chave);
+    printf("%.*s -> ", N, Aux->Item.Chave);
     Aux = Aux->Prox;
   }
 }
@@ -165,6 +165,8 @@ int main(int argc, char *argv[]){
     Insere(Elemento, p, Tabela);
     LerPalavra(Elemento.Chave,N);
   }
+
+  system("clear || cls");
 
   printf("Tabela apos insercao:\n");
   Imprime(Tabela);
