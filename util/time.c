@@ -4,20 +4,16 @@
 #include <time.h>
 #define TAM 500000
 
-void printVetor(int vetor[])
-{
+void printVetor(int vetor[]){
     printf("[ ");
     for (int i = 0; i < TAM; i++)
         printf("%i, ", vetor[i]);
     printf(" ]\n\n");
 }
 
-void preencheVetorRandom(int vetor[])
-{
+void preencheVetorRandom(int vetor[]){
     for (int i = 0; i < TAM; i++)
-    {
         vetor[i] = rand() % TAM;
-    }
 }
 
 void quicksort(int vetor[], int esq, int dir)
