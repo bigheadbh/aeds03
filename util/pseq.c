@@ -62,7 +62,8 @@ void pseq(char *nomeArquivo){
     int n = 0;
 
     //Abre o arquivo
-    FILE *fp = fopen(nomeArquivo, "a+r");
+    puts(nomeArquivo);
+    FILE *fp = fopen(nomeArquivo, "r");
     if(fp != NULL){
         while(!feof(fp)){
             fgets(linha, 100, fp);
@@ -90,6 +91,8 @@ void pseq(char *nomeArquivo){
         //imprimir lista de palavras
         for(int i=0; i<n; i++)
             printf("word: %s freq: %d\n", vetor[i].palavra, vetor[i].freq);
+    } else {
+        printf("passou aqui..");
     }
 
 }
