@@ -1,11 +1,6 @@
-arara
-ama
-Ana
-anilina
-ara
-arara
-asa
-ata
-Ame a ema
-Subi no ônibus
-FIM
+4 5 6
+3 10 8 7 2
+4 1 7 10 9
+9 1 5 3 6
+6 8 1 5 7
+7 3 5 6 1 9
