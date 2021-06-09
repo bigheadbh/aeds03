@@ -48,11 +48,5 @@ int main(){
         }
     }
 
-    /*for(int i = 0; i < cartelas; i++){
-        for(int j = 0; j < colunas; j++)
-            printf("%d\t", Matriz[i][j]);
-        printf("\n");
-    }*/
-
     return 0;
 }

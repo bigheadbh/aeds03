@@ -9,13 +9,10 @@ typedef struct Aluno{
 
 int checkSignature(char *registro, char *assinatura){
     int resp = 0;
-    for(int i = 0; i<strlen(registro); i++){
+    for(int i = 0; i<strlen(registro); i++)
         if(registro[i] != assinatura[i]) resp++;
-    }
     return resp;
 }
-
-
 
 int main(){
     char linha[100];
