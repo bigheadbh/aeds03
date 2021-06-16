@@ -1,6 +1,8 @@
 #include<iostream>
 using namespace std;
 
+#define TAM 10
+
 class Retangulo {
     private:
         int largura;
@@ -70,8 +72,50 @@ class Pessoa {
         }
 };
 
+void menu(){
+    system("cls||clear");
+    cout<< " 1 - Para cadastrar pessoa"<<endl;
+    cout<< " 2 - Mostrar pessoas cadastradas"<<endl;
+    cout<< " 3 - Para sair..."<<endl;
+}
+
 int main(){
-    Retangulo r1(10,20);
-    cout << r1.area() <<endl;
+    Pessoa pessoas[TAM];
+    int count = 0;
+    int opcao, idade;
+    string nome;
+    float altura;
+    menu();
+    cin>>opcao;
+
+    while(opcao != 3){
+        switch (opcao){
+            case 1:
+                if(count < TAM){
+                    system("cls||clear");
+                    cout<<"informe um nome para cadastro: "<<endl;
+                    cin>>nome; cin.ignore();
+                    cout<<"informe a altura da pessoa: "<<endl;
+                    cin>>altura; cin.ignore();
+                    cout<<"informe a idade da pessoa: "<<endl;
+                    cin>>idade; cin.ignore();
+                    pessoas[count].setNome(nome);
+                    pessoas[count].setIdade(idade);
+                    pessoas[count].setAltura(altura);
+                    count ++;
+                } else {
+                    cout<<"Limite de cadastro alcançado...."<<endl;
+                }
+                getchar();
+                break;
+            case 2:
+                for(int i = 0; i < count; i++)
+                    pessoas[i].mostrar();
+                getchar();
+                break;
+        }
+        menu();
+        cin>>opcao; cin.ignore();
+    }
     return 0;
 }
