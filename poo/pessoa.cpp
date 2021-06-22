@@ -44,28 +44,32 @@ class Pessoa{
             return this->altura;
         }
         void imprimir(){
-            system("cls || clear");
-            cout << "nome: " << this->nome << endl;
-            cout << "idade: " << this->idade << endl;
+            cout << "nome: " << this->nome;
+            cout << "idade: " << this->idade;
             cout << "altura: " << this->altura << endl;
         }
 };
 
 int main(){
-    Pessoa *p;
+    Pessoa *p[5];
     string nome;
     int idade;
     float altura;
-    cout<<"Entre com o seu nome: " <<endl;
-    getline(cin,nome);
-    cout<<"Entre com a sua idade: " <<endl;
-    cin>>idade;
-    cout<<"Entre com a sua altura: "<<endl;
-    cin>>altura;
 
-    p = new Pessoa(nome, idade, altura);
+    for(int i = 0; i < 5; i++){
+        system("cls || clear");
+        cout<<"Entre com o seu nome: " <<endl;
+        getline(cin,nome);
+        cout<<"Entre com a sua idade: " <<endl;
+        cin>>idade; 
+        cout<<"Entre com a sua altura: "<<endl;
+        cin>>altura; cin.ignore();
+        p[i] = new Pessoa(nome, idade, altura);
+    }
 
-    p->imprimir();
+    system("cls || clear");
+    for(int i = 0; i < 5; i++)
+        p[i]->imprimir();
 
     return 0;
 }
