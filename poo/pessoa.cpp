@@ -70,6 +70,5 @@ int main(){
     system("cls || clear");
     for(int i = 0; i < 5; i++)
         p[i]->imprimir();
-
     return 0;
 }
